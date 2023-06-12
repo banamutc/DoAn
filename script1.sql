@@ -1,0 +1,248 @@
+
+create database fashionstore;
+use fashionstore;
+-- Tạo bảng
+create table cart (id integer not null auto_increment, count integer not null, product_id integer, user_id varchar(255), primary key (id)) engine=InnoDB;
+create table category (id integer not null auto_increment, category_name nvarchar(1111), primary key (id)) engine=InnoDB;
+create table `order` (id integer not null auto_increment, address nvarchar(1111), booking_date date, country nvarchar(1111), email nvarchar(1111), fullname nvarchar(1111), note nvarchar(1111), payment_method nvarchar(1111), phone nvarchar(1111), status nvarchar(1111), total integer, user_id varchar(255), primary key (id)) engine=InnoDB;
+create table order_item (id integer not null auto_increment, count integer, order_id integer, product_id integer, primary key (id)) engine=InnoDB;
+create table product (id integer not null auto_increment, created_at date, description nvarchar(11111), is_active integer, is_selling integer, price integer, product_name nvarchar(1111), quantity integer, sold integer, category_id integer, primary key (id)) engine=InnoDB;
+create table product_image (id integer not null auto_increment, url_image nvarchar(1111), product_id integer, primary key (id)) engine=InnoDB;
+create table user (id varchar(255) not null, avatar nvarchar(1111), email nvarchar(1111), login_type nvarchar(1111), password nvarchar(1111), phone_number nvarchar(1111), role nvarchar(1111), user_name nvarchar(1111),is_active integer, primary key (id)) engine=InnoDB;
+alter table cart add constraint FK3d704slv66tw6x5hmbm6p2x3u foreign key (product_id) references product (id);
+alter table cart add constraint FKl70asp4l4w0jmbm1tqyofho4o foreign key (user_id) references user (id);
+alter table `order` add constraint FKcpl0mjoeqhxvgeeeq5piwpd3i foreign key (user_id) references user (id);
+alter table order_item add constraint FKs234mi6jususbx4b37k44cipy foreign key (order_id) references `order` (id);
+alter table order_item add constraint FK551losx9j75ss5d6bfsqvijna foreign key (product_id) references product (id);
+alter table product add constraint FK1mtsbur82frn64de7balymq9s foreign key (category_id) references category (id);
+alter table product_image add constraint FK6oo0cvcdtb6qmwsga468uuukk foreign key (product_id) references product (id);
+
+-- Insert dữ liệu
+INSERT INTO `fashionstore`.`user` (`id`, `login_Type`, `role`, `password`, `user_Name`, `avatar`, `email`, `phone_Number`,`is_active`) VALUES ('banam1412', 'default', 'user', 'MQ==', 'Nguyễn Bá Nam', 'https://haycafe.vn/wp-content/uploads/2022/02/Avatar-trang-den.png', 'namnguyenbahd@gmail.com', '0971029778','1');
+INSERT INTO `fashionstore`.`user` (`id`, `login_Type`, `role`, `password`, `user_Name`, `avatar`, `email`, `phone_Number`,`is_active`) VALUES ('admin', 'default', 'admin', 'MQ==', 'Nguyễn Bá Nam', 'https://haycafe.vn/wp-content/uploads/2022/02/Avatar-trang-den.png', 'namnguyenbahd@gmail.com', '0971029778','1');
+-- user name = banam1412 pass=1
+-- admin name = admin pass=1
+
+INSERT INTO `fashionstore`.`category` (`category_Name`) VALUES ('Shirt');
+INSERT INTO `fashionstore`.`category` (`category_Name`) VALUES ('Trousers');
+INSERT INTO `fashionstore`.`category` (`category_Name`) VALUES ('Shoe');
+INSERT INTO `fashionstore`.`category` (`category_Name`) VALUES ('Hat');
+INSERT INTO `fashionstore`.`category` (`category_Name`) VALUES ('Glasses');
+
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-02-21', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '500000', 'Men\'s Jacket AKHTK306', '100', '20', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-02-21', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '300000', 'Men\'s polo shirt POTTK333', '100', '10', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-02-11', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '360000', 'Men\'s polo shirt POHTK313', '100', '20', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-02-10', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '549000', 'Men\'s jeans QJDTK323', '100', '90', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-02-09', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '520000', 'Men\'s jeans QJDTK320', '100', '10', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-10', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '230000', 'Men\'s shorts QSGTK312', '100', '75', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-04', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '750000', 'GIACN226 Men\'s Shoes', '100', '80', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-11', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '720000', 'Men\'s shoes GIACN302', '100', '50', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-10', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '520000', 'Men\'s shoes GIACN308', '100', '10', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-09', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '249000', 'Men\'s fashion hat MLTTK301', '100', '100', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-10', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '250000', 'Panama Men\'s Fashion Hat 18EM250', '200', '310', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-04', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '180000', 'Men\'s Fashion Caps 16HM180', '100', '10', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-04', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '999000', 'UNISEX high-end eyewear ELLY – EKU148', '100', '30', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-30', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '899000', 'High-end eyewear ELLY – EKU141', '40', '50', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-29', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '690000', 'High-end eyewear ELLY HOMME – EKM133', '80', '70', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-21', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '250000', 'Code sl applique hoodie - bright green', '100', '20', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-21', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '220000', 'Riviera short sleeve shirt - sepia floral', '100', '70', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-02', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '190000', 'Graphic crew neck tee - white', '100', '20', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-09', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '900000', 'Plain regular long lounge pant - black', '100', '90', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-07', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '180000', 'QATTK301 Mens Pants', '100', '20', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-06', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '100000', 'Mens SHORT Pants QSVTK805', '100', '200', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-29', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '370000', 'GIACN312 Mens Shoes', '100', '20', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-30', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '120000', 'GIACN235 Mens Shoes', '100', '20', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-12', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '510000', 'SNEKER SPORTY SHOES G1011', '100', '100', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-14', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '990000', 'Men fashion hat MTRTK306', '100', '90', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-16', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '100000', 'Mens Fashion Caps Caps 16HM180', '100', '20', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-23', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '190000', 'Mens fashion hat MLTTK301', '100', '70', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-27', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '230000', 'Gentle Monster Loful Sunglasses 01 56 -19 Black', '100', '10', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-06', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '760000', 'MarcJacobs MARC192FS-IPR-9O', '100', '20', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-30', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '520000', 'Anti-blue light sunglasses', '100', '90', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-30', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '520000', 'Blazer jacket ABZTK303', '100', '90', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-09', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '120000', 'Men\'s shirt STDTK341', '100', '80', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-05-03', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '340000', 'Men\'s T-shirt APHTK358', '100', '130', '1');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-17', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '370000', 'QGNTK308 jogger pants', '100', '200', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-11', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '910000', 'Men\'s shorts QSNTK302', '100', '10', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-18', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '200000', 'Men\'s jeans QJDTK235', '100', '20', '2');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-29', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '820000', 'GIACN209 Men\'s Shoes', '100', '70', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-24', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '670000', 'Men\'s SHOES GIACN101', '100', '50', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-23', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '710000', 'GIACN SHOES 115', '100', '90', '3');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-25', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '200000', 'Men\'s fashion hat MLTTK304', '100', '90', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-19', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '560000', 'Men\'s fashion hat MLTTK303', '100', '78', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-15', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '120000', 'Men\'s Fashion Caps Caps 16HM180', '100', '120', '4');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-04-15', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '350000', 'OWNDAYS - Sunglasses SUN8005J-2S', '100', '10', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-16', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '120000', 'MUJOSH glass', '100', '50', '5');
+INSERT INTO `fashionstore`.`product` (`created_at`, `description`, `is_active`, `is_selling`, `price`, `product_name`, `quantity`, `sold`, `category_id`) VALUES ('2023-03-11', 'Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening with placket.', '1', '1', '240000', 'MAX&Co glass', '100', '500', '5');
+
+
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/AKHTK306-QGNTK315-2.jpg', '1');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/AKHTK306-QGNTK315-3.jpg', '1');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/AKHTK306-QGNTK315-5.jpg', '1');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/11/POTTK333-QJDTK310-2.jpg', '2');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/11/POTTK333-QJDTK310-3.jpg', '2');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/11/POTTK333-QJDTK310-5.jpg', '2');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/POHTK313-QATTK304-9.jpg', '3');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/POHTK313-QATTK304-2.jpg', '3');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/POHTK313-QATTK304-3.jpg', '3');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/QJDTK323-2.jpg', '4');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/QJDTK323-1.jpg', '4');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/ANHOL335-QJDTK323-13.jpg', '4');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/QJDTK320-1.jpg', '5');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/QJDTK320-4.jpg', '5');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/QJDTK320-3.jpg', '5');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QSGTK312-1.jpg', '6');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QSGTK312-2.jpg', '6');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QSGTK312-3.jpg', '6');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN226-1.jpg', '7');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2021/08/GIACN226-2.jpg', '7');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2021/08/GIACN226-4.jpg', '7');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN302-1.jpg', '8');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN302-2.jpg', '8');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN302-2.jpg', '8');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN308-5.jpg', '9');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN308-6.jpg', '9');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN308-5.jpg', '9');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK301-9.jpg', '10');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK301-3.jpg', '10');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK301-4.jpg', '10');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/18Em250.jpg', '11');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/18EM280-2.jpg', '11');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/18EM280-2.jpg', '11');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-4.jpg', '12');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-5.jpg', '12');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-3.jpg', '12');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2022/06/16104911/kinh-mat-unisex-cao-cap-elly-eku148-26.jpg', '13');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2022/06/16104809/kinh-mat-unisex-cao-cap-elly-eku148-18-2.jpg', '13');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2022/06/16104721/kinh-mat-unisex-cao-cap-elly-eku148-12-2.jpg', '13');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2022/07/12224407/kinh-mat-nu-thoi-trang-cao-cap-EKU141-11.jpg', '14');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2022/07/12224306/kinh-mat-nu-thoi-trang-cao-cap-EKU141-3-510x510.jpg', '14');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2022/07/12224258/kinh-mat-nu-thoi-trang-cao-cap-EKU141-2.jpg', '14');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2021/06/23231113/kinh-mat-nu-thoi-trang-cao-cap-Elly-Ek133-0-510x510.jpg', '15');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2021/06/18224937/z3648822848148_ff75fe182aa2d2fb59e42cf4bcb934b2.jpg', '15');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://cdn.elly.vn/uploads/2021/06/23231156/kinh-mat-nu-thoi-trang-cao-cap-Elly-Ek133-6.jpg', '15');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/07/ALECN201-1.jpg', '16');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2021/07/ALECN201-4.jpg', '16');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2021/07/ALECN201-3.jpg', '16');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/SHNTK323-QJDTK306-1.jpg', '17');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/SHNTK323-QKLTK306-5.jpg', '17');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/SHNTK323-QKLTK306-2.jpg', '17');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://levi.pt/content/img/levis_t-shirt_masculino_graphic-crewneck-tee-22491-1213_white_1.jpg', '18');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://levi.pt/content/img/levis_t-shirt_masculino_graphic-crewneck-tee-22491-1213_white_2.jpg', '18');
+-- INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2021/12/AHHTK210-2.jpg', '18');
+-- INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2021/12/AHHTK210-6.jpg', '18');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/QGGTK311-1.jpg', '19');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/QGGTK311-1.jpg', '19');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/12/QGGTK311-3.jpg', '19');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/QATTK301-2.jpg', '20');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/QATTK301-5.jpg', '20');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/QATTK301-4.jpg', '20');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QSNTK306-4.jpg', '21');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QSNTK306-5.jpg', '21');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QSNTK306-6.jpg', '21');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/GIACN312-1.jpg', '22');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/GIACN312-3.jpg', '22');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/10/GIACN312-2.jpg', '22');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN235-2.jpg', '23');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN235-3.jpg', '23');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN235-4.jpg', '23');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/G1011-750k-2-copy-Copy.jpg', '24');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/G1011-750k-3-copy-Copy.jpg', '24');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MTRTK306-1.jpg', '25');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MTRTK306-2.jpg', '25');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MTRTK306-3.jpg', '25');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MTRTK306-4.jpg', '25');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-9.jpg', '26');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-11.jpg', '26');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-11.jpg', '26');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK301-11.jpg', '27');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK301-12.jpg', '27');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK301-10.jpg', '27');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/3f03248d-4501-426a-b3a0-67b623a7b6f1_1.abfbdef9da932a016410c2a6434de724.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '28');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/d968e44f-8589-41d1-8c8d-59f753e59c35_1.95650280ecc167a019cb222c80b0fbef.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '28');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/5d9809b4-3cfb-4bf5-bf69-da58600236e6_1.85a7dfbb9d57a27c42a7aef4a638bd5b.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '28');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/ff582578-b104-498d-b763-d67d65546693.ec6def46b9737499a8ee96ddb555c19b.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '29');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/14abc3bc-dd02-439a-8ddf-0cdfdf88adf5.309714af395966532b878c660484f56c.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '29');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/0d992eea-340c-4290-a68e-82a34002816c.bd177b7423cdab5afb169c56f30d3b17.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '29');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/2338cd59-aa29-4179-bf4a-c2ec35abe5ff.d18e5ac7fa473ed5bf9d18697f67782b.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '30');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/2338cd59-aa29-4179-bf4a-c2ec35abe5ff.d18e5ac7fa473ed5bf9d18697f67782b.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '30');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://i5.walmartimages.com/asr/49130cc9-4cda-4745-8b2d-99e1771e794d.33e91f9f7715a68eabeba08d2ceac6cf.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF', '30');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/ABZTK303-QATTK310-6.jpg', '31');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/ABZTK303-QATTK310-7.jpg', '31');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/ABZTK303-QATTK310-8.jpg', '31');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/STDTK341-QJDTK310-3.jpg', '32');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/STDTK341-QJDTK310-6.jpg', '32');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/STDTK341-QJDTK310-4.jpg', '32');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/STDTK341-QJDTK310-7.jpg', '32');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/APHTK358-1.jpg', '33');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/APHTK358-5.jpg', '33');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/APHTK358-2.jpg', '33');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/11/ApTTK360-QGNTK308-7.jpg', '34');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/11/ApTTK360-QGNTK308-4.jpg', '34');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/11/ApTTK360-QGNTK308-2.jpg', '34');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/QSNTK302-5.jpg', '35');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/QSNTK302-5.jpg', '35');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/QSNTK302-7.jpg', '35');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QJDTK235-1.jpg', '36');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QJDTK235-2.jpg', '36');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/QJDTK235-3.jpg', '36');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/GIACN209-1.jpg', '37');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/GIACN209-2.jpg', '37');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/09/GIACN209-3.jpg', '37');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN101-7.jpg', '38');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN101-6.jpg', '38');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN101-5.jpg', '38');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN115-1.jpg', '39');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN115-4.jpg', '39');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/GIACN115-3.jpg', '39');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK304-10.jpg', '40');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK304-9.jpg', '40');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK304-8.jpg', '40');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK303-8.jpg', '41');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK303-7.jpg', '41');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2022/08/MLTTK303-5.jpg', '41');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-50.jpg', '42');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://360.com.vn/wp-content/uploads/2018/08/16HM180-49.jpg', '42');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://exacdn.acfc.com.vn/media/catalog/product/cache/a3789755a23d111bf3d9c5f147753e0a/s/u/sun8005j-2s-3-1_yfk5bg5ihqb0gxrd.webp', '43');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://exacdn.acfc.com.vn/media/catalog/product/cache/a3789755a23d111bf3d9c5f147753e0a/s/u/sun8005j-2s-3-3_ervplko5g81ij01p.webp', '43');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://exacdn.acfc.com.vn/media/catalog/product/cache/a3789755a23d111bf3d9c5f147753e0a/s/u/sun8005j-2s-3-5_k1ifez5k5klomted.webp', '43');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://product.hstatic.net/1000284478/product/cpc2_mj101fh052_1_12aa1dd7550f49ce8f52e4189b15478e_large.jpg', '44');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://product.hstatic.net/1000284478/product/slc3_mj101fh052_1_b17573f903a54e2596326573c9a91fe2_large.jpg', '44');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://product.hstatic.net/1000284478/product/bkc1_mj101fh052_1_0a67bf652c7e466f9417ad37e0244d99_large.jpg', '44');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://product.hstatic.net/1000284478/product/1_4804041803_1_dafff5d31a2c4eeca56b8441344b08e7_large.jpg', '45');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://product.hstatic.net/1000284478/product/2_4804041803_1_17006b97fedf46b2bb293256f074e570_large.jpg', '45');
+INSERT INTO `fashionstore`.`product_image` (`url_image`, `product_id`) VALUES ('https://product.hstatic.net/1000284478/product/2_4804041803_2_b8fc0c2f8cda4a468e1e61b732e57563_large.jpg', '45');
+
+INSERT INTO `fashionstore`.`cart` (`count`, `product_id`, `user_id`) VALUES ('2', '1', 'banam1412');
+INSERT INTO `fashionstore`.`cart` (`count`, `product_id`, `user_id`) VALUES ('3', '3', 'banam1412');
+INSERT INTO `fashionstore`.`cart` (`count`, `product_id`, `user_id`) VALUES ('2', '2', 'banam1412');
+INSERT INTO `fashionstore`.`cart` (`count`, `product_id`, `user_id`) VALUES ('1', '5', 'banam1412');
+
+Select * From product p where p.is_active = 1 ORDER BY p.quantity  DESC LIMIT 12;
+
+Select distinct `order`.user_id From `order`  ORDER BY `order`.id DESC LIMIT 5;
+
+delete from product p where p.id = 10;
+delete from product_image p where p.product_id = 50;
+
+delete pi,p from `product_image` pi inner join `product` p on pi.product_id = p.id Where p.id = 50;
+
+SELECT * FROM product ORDER BY product.id desc LIMIT 5 OFFSET 0;
+SELECT * FROM product where product.is_active = 1 limit 9 OFFSET 40;
+
+select count(product.id) from product where product.is_active = 1;
+
+select * from product p where p.product_name like '%1%';
+select * from product p where p.is_active = 1;
+
+select c.id,c.count, c.product_id, c.user_id from cart c join user u on c.user_id = u.id join product p on c.product_id=p.id where u.id='banam1412' and p.is_active=1;
+select * from product where product.is_active = 1 and product.id = 1;
+
+select * from user where user.id = 'banam1412';
+
+update user u set u.is_active = 1 where u.id = 'user1';
+
+SELECT * FROM `order` o where o.status = 'Delivering' limit 9;
+
+select * from user u where u.id = 'user' and u.role = 'user' and u.is_active = 1;
+update user u set u.password = 'MQ==' where u.id = 'user';
